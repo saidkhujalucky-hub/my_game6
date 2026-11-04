@@ -1,0 +1,12 @@
+# Render Blueprint: один сервис размещает готовый Vite-сайт и Socket.IO.
+services:
+  - type: web
+    name: hero-islands-12
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
