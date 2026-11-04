@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#081022" />
+  <meta name="description" content="HERO ISLANDS — 12 героев, 12 баз, 3D PvP и строительство своей базы." />
+  <title>HERO ISLANDS — 12 PLAYER 3D ARENA</title>
+</head>
+<body>
+  <div id="game"></div>
+  <div class="film-grain"></div>
+  <div class="cinematic-top"></div>
+  <div class="cinematic-bottom"></div>
+
+  <section id="lobby" class="lobby">
+    <div class="lobby-backdrop"></div>
+    <div class="lobby-shell">
+      <div class="lobby-topline">
+        <div class="brand-mark"><span class="brand-orbit">✦</span><span>HERO<span class="brand-bright">ISLANDS</span></span></div>
+        <div class="server-state"><span id="connectionDot" class="dot"></span><span id="connectionText">ПОДКЛЮЧЕНИЕ К СЕРВЕРУ</span></div>
+      </div>
+      <div class="intro">
+        <div class="eyebrow"><span class="dash"></span> MULTIPLAYER SUPERHERO TYCOON <span class="dash"></span></div>
+        <h1>ТВОЙ ГЕРОЙ.<br><span>ТВОЯ ИМПЕРИЯ.</span></h1>
+        <p>Огромный 3D-остров, 12 супергероев, 12 уникальных баз и онлайн-сражения. Зарабатывай кредиты, строй генераторы и оборонительные турели, побеждай на арене.</p>
+        <div class="features"><span>◉ ДО 12 ИГРОКОВ</span><span>⌁ 12 СПОСОБНОСТЕЙ</span><span>▤ ПРОКАЧКА БАЗЫ</span><span>⚔ PVP</span><span>✦ ДРОНЫ ДЛЯ ТРЕНИРОВКИ</span></div>
+      </div>
+      <div id="heroShowcase" class="hero-showcase" aria-label="Трёхмерная модель выбранного супергероя">
+        <div class="hero-showcase-top"><span class="showcase-pulse">◈</span> АРСЕНАЛ ГЕРОЕВ <span>3D / LIVE</span></div>
+        <div id="heroPreviewCanvas" class="hero-preview-canvas"></div>
+        <div class="showcase-bottom"><strong id="showcaseName">ВОЛЬТ</strong><span id="showcaseClass">ЭНЕРГИЯ · БОЕВОЙ КОСТЮМ</span></div>
+      </div>
+      <div class="selection-heading"><span>01 — ВЫБЕРИ ГЕРОЯ</span><span class="tiny">Нажми на карточку</span></div>
+      <div id="heroGrid" class="hero-grid"></div>
+      <div id="heroDetail" class="hero-detail"></div>
+      <div class="playbar">
+        <label class="field"><span>ПОЗЫВНОЙ</span><input maxlength="18" id="nickname" placeholder="Твой ник" autocomplete="nickname" /></label>
+        <label class="field"><span>КОМНАТА <small>(PUBLIC — общий матч)</small></span><input maxlength="14" id="roomCode" value="PUBLIC" spellcheck="false" /></label>
+        <button id="playButton" class="play-button" type="button"><span>НАЧАТЬ ИГРУ</span><span class="arrow">↗</span></button>
+      </div>
+      <p id="lobbyMessage" class="lobby-message" role="status"></p>
+      <p class="lobby-foot">ORIGINAL HERO UNIVERSE · БРАУЗЕРНАЯ 3D-ИГРА · ВЕРСИЯ 3.0 · CLOUDFLARE ONLINE</p>
+    </div>
+  </section>
+
+  <div id="hud" class="hud hidden">
+    <header class="game-header">
+      <div class="game-logo"><span class="logo-icon">✦</span> HERO<span>ISLANDS</span></div>
+      <div class="room-label"><i class="room-led"></i><span id="roomLabel">PUBLIC</span><span class="room-sep">/</span><span id="playerCount">1 / 12</span></div>
+      <button id="menuButton" class="glass-button" title="Покинуть матч">ВЫХОД ↗</button>
+    </header>
+    <div class="hud-left">
+      <div class="player-card">
+        <div id="playerAvatar" class="player-avatar">✦</div>
+        <div class="player-info"><div class="info-top"><b id="playerName">ВОЛЬТ</b><span id="heroClass">ЭНЕРГИЯ</span></div><div class="bar health"><div id="healthFill"></div></div><div class="bar energy"><div id="energyFill"></div></div><div class="values"><span id="hpText">125 / 125 HP</span><span id="energyText">100 ENERGY</span></div></div>
+      </div>
+      <div class="economy"><div class="economy-icon">◈</div><div><span>КРЕДИТЫ</span><strong id="coins">180</strong></div><span class="income-tag" id="income">+14 / 4 с</span></div>
+      <div class="build-card"><div class="build-label">ТВОЯ БАЗА <span id="baseLevel">УР. 0 / 3</span></div><div class="build-progress"><i id="buildProgress"></i></div><p id="nextUpgrade">Генератор — 120 кредитов</p><button id="upgradeButton">[ B ] УЛУЧШИТЬ БАЗУ</button></div>
+    </div>
+    <div class="hud-right">
+      <div class="leaderboard"><div class="leaderboard-title">ТАБЛИЦА ЛИДЕРОВ <span>⚔</span></div><div id="leaderboardRows"></div></div>
+      <div class="minimap-wrap"><canvas id="minimap" width="220" height="220"></canvas><div class="minimap-label">ОСТРОВ / 12 БАЗ</div></div>
+    </div>
+    <div id="crosshair" class="crosshair"><span></span><span></span><span></span><span></span><i></i></div>
+    <div class="bottom-hud">
+      <div class="control-hint"><span>W A S D <b>ДВИЖЕНИЕ</b></span><span>SHIFT <b>БЕГ</b></span><span>МЫШЬ <b>ОБЗОР</b></span><span>ЛКМ <b>АТАКА</b></span></div>
+      <div class="action-cards"><div class="action-card"><div class="action-icon" id="weaponIcon">⌁</div><div><small>ЛКМ · ОРУЖИЕ</small><b id="weaponName">Плазменный бластер</b></div></div><div class="action-card skill" id="skillCard"><div class="action-icon">✧</div><div><small>E · СПОСОБНОСТЬ</small><b id="abilityName">Электрошторм</b></div><div class="cooldown" id="cooldownText">ГОТОВО</div></div></div>
+    </div>
+    <div id="feed" class="event-feed"></div>
+    <div id="toast" class="toast"></div>
+    <div id="respawn" class="respawn hidden"><div class="respawn-content"><span>ВОЗРОЖДЕНИЕ</span><strong id="respawnSeconds">5</strong><p>Возвращаем тебя на базу</p></div></div>
+    <div id="aimHint" class="aim-hint">НАЖМИ НА ИГРУ, ЧТОБЫ УПРАВЛЯТЬ КАМЕРОЙ</div>
+    <div class="mobile-controls" id="mobileControls"><div class="mobile-move"><button data-key="KeyW">▲</button><div><button data-key="KeyA">◀</button><button data-key="KeyS">▼</button><button data-key="KeyD">▶</button></div></div><div class="mobile-actions"><button id="mobileSkill">E<br><small>СИЛА</small></button><button id="mobileBuild">B<br><small>БАЗА</small></button><button id="mobileFire">⚡<br><small>ОГОНЬ</small></button></div></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

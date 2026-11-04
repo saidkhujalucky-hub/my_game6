@@ -1,0 +1,31 @@
+{
+  "name": "hero-islands-12",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare-native 12-player 3D superhero tycoon with original high-detail heroes",
+  "scripts": {
+    "dev": "concurrently -k \"npm:server:dev\" \"npm:client:dev\"",
+    "server:dev": "node server/index.js",
+    "client:dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "check": "node --check worker.js && node --check client/src/main.js && node --check client/src/realtime.js && node --check client/src/hero-detail.js && node --check shared/config.js",
+    "test": "node --test tests/*.test.js",
+    "postinstall": "npm run build",
+    "deploy": "npm run build && npx wrangler deploy"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
